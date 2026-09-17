@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from unicodedata import category
+from main.models import *
 from main.forms import *
 
 # Create your views here.
@@ -11,5 +13,19 @@ def index(request):
             return redirect('index')
     else:
         form = MathForm()
-    calculations = Math.objects.all()
-    return render(request, 'index.html', {'form' : form, 'calculations' : calculations})
+    calculations = Math.objects.last()
+
+    category_id = request.GET.get('category')
+
+    if category_id:
+        history = Math.objects.filter(category=category_id)
+    else:
+        history = Math.objects.none()
+
+    categories = Category.objects.all()
+    return render(request, 'index.html', {
+        'form': form,
+        'calculations': calculations,
+        'history': history,
+        'categories': categories,
+    })

@@ -1,21 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+
 <body>
+
+<div class="calculator">
+
+    <h1>Калькулятор</h1>
+
+    <!-- Форма расчёта -->
     <form method="post">
+
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Расчитать</button>
+
+        <div class="inputs">
+
+            <div class="input-box">
+                <label for="{{ form.math1.id_for_label }}">
+                    Число 1
+                </label>
+
+                {{ form.math1 }}
+            </div>
+
+            <div class="plus">+</div>
+
+            <div class="input-box">
+                <label for="{{ form.math2.id_for_label }}">
+                    Число 2
+                </label>
+
+                {{ form.math2 }}
+            </div>
+
+        </div>
+
+        <div class="category-box">
+
+            <label for="{{ form.category.id_for_label }}">
+                Категория
+            </label>
+
+            {{ form.category }}
+
+        </div>
+
+        <button type="submit">
+            Рассчитать
+        </button>
+
     </form>
-    <ul>
-        {% for m in calculations %}
-            <li>{{ m.math1 }} + {{ m.math2 }} = {{ m.result }}</li>
+
+
+    <!-- Последний результат -->
+
+    {% if calculations %}
+
+        <div class="result">
+
+            <div class="result-title">
+                Последний расчёт
+            </div>
+
+            <div class="expression">
+                {{ calculations.math1 }}
+                +
+                {{ calculations.math2 }}
+                =
+            </div>
+
+            <div class="result-number">
+                {{ calculations.result }}
+            </div>
+
+            <div class="category-result">
+                Категория:
+                {{ calculations.category }}
+            </div>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- История -->
+
+
+
+<div class="history-select">
+
+    <h2>История расчётов</h2>
+
+    <form method="get">
+
+        <select name="category">
+
+            <option value="">
+                Выберите категорию
+            </option>
+
+            {% for category in categories %}
+
+                <option value="{{ category.id }}">
+                    {{ category.category }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <button type="submit">
+            Показать историю
+        </button>
+
+    </form>
+
+</div>
+
+
+{% if history %}
+
+    <div class="history">
+
+        <h2>Расчёты выбранной категории</h2>
+
+        {% for m in history %}
+
+            <div class="history-item">
+
+                {{ m.math1 }} + {{ m.math2 }} = {{ m.result }}
+
+            </div>
+
         {% endfor %}
-    </ul>
+
+    </div>
+
+
+    {% endif %}
+
+</div>
+
 </body>
 </html>
