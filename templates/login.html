@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Вход</title>
+
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <h1>Вход</h1>
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="auth-form">
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Введите логин"
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Введите пароль"
+        >
+
+        <button type="submit">
+            Войти
+        </button>
+    </form>
+
+    <a href="{% url 'register' %}" class="auth-link">
+        Нет аккаунта? Зарегистрироваться
+    </a>
+
+</div>
+
+</body>
+</html>
+```

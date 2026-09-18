@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -13,3 +14,9 @@ class Math(models.Model):
     @property
     def result(self):
         return self.math1+ self.math2
+
+class Profile(models.Model):
+    age = models.IntegerField()
+    description = models.TextField()
+    name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
