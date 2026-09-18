@@ -218,3 +218,69 @@ button:hover {
 .history-item:last-child {
     margin-bottom: 0;
 }
+.profile-button {
+    display: inline-block;
+
+    padding: 12px 24px;
+
+    background: #000;
+    color: #fff;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.profile-button:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+.profile-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+.profile-button,
+.logout-button {
+    display: inline-block;
+
+    padding: 10px 20px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.profile-button {
+    background: #000;
+    color: #fff;
+}
+
+.logout-button {
+    background: #e5e5e5;
+    color: #000;
+}
+
+.profile-button:hover,
+.logout-button:hover {
+    transform: translateY(-2px);
+}
+
+.profile-button:hover {
+    background: #333;
+}
+
+.logout-button:hover {
+    background: #ccc;
+}

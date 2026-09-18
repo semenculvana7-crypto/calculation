@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from main.models import *
 from main.forms import *
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 # Create your views here.
-
+@login_required
 def index(request):
     if request.method == 'POST':
 
@@ -78,6 +79,13 @@ def login_view(request):
 
     return render(request, 'login.html')
 
-
+@login_required
 def profile(request):
-    return render(request, 'profile.html')
+    profile = Profile.objects.first()
+
+    return render(request, 'profile.html', {
+        'profile': profile
+    })
+def logout_view(request):
+    logout(request)
+    return redirect('login')

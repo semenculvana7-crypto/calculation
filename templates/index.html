@@ -15,7 +15,23 @@
 
     <h1>Калькулятор</h1>
 
+    <!-- Кнопки профиля и выхода -->
+
+    <div class="profile-buttons">
+
+        <a href="{% url 'profile' %}" class="profile-button">
+            Мой профиль
+        </a>
+
+        <a href="{% url 'logout' %}" class="logout-button">
+            Выйти
+        </a>
+
+    </div>
+
+
     <!-- Форма расчёта -->
+
     <form method="post">
 
         {% csrf_token %}
@@ -92,57 +108,54 @@
 
     <!-- История -->
 
+    <div class="history-select">
 
+        <h2>История расчётов</h2>
 
-<div class="history-select">
+        <form method="get">
 
-    <h2>История расчётов</h2>
+            <select name="category">
 
-    <form method="get">
-
-        <select name="category">
-
-            <option value="">
-                Выберите категорию
-            </option>
-
-            {% for category in categories %}
-
-                <option value="{{ category.id }}">
-                    {{ category.category }}
+                <option value="">
+                    Выберите категорию
                 </option>
 
-            {% endfor %}
+                {% for category in categories %}
 
-        </select>
+                    <option value="{{ category.id }}">
+                        {{ category.category }}
+                    </option>
 
-        <button type="submit">
-            Показать историю
-        </button>
+                {% endfor %}
 
-    </form>
+            </select>
 
-</div>
+            <button type="submit">
+                Показать историю
+            </button>
 
-
-{% if history %}
-
-    <div class="history">
-
-        <h2>Расчёты выбранной категории</h2>
-
-        {% for m in history %}
-
-            <div class="history-item">
-
-                {{ m.math1 }} + {{ m.math2 }} = {{ m.result }}
-
-            </div>
-
-        {% endfor %}
+        </form>
 
     </div>
 
+
+    {% if history %}
+
+        <div class="history">
+
+            <h2>Расчёты выбранной категории</h2>
+
+            {% for m in history %}
+
+                <div class="history-item">
+
+                    {{ m.math1 }} + {{ m.math2 }} = {{ m.result }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
 
     {% endif %}
 
