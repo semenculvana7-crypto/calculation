@@ -36,13 +36,23 @@ def register(request):
     if request.method == 'POST':
         password = request.POST['password']
         username = request.POST['username']
+        age = request.POST['age']
+        description = request.POST['description']
 
-        User.objects.create_user(
-            password = password,
-            username = username
+        user = User.objects.create_user(
+            password=password,
+            username=username
+        )
+
+        Profile.objects.create(
+            user=user,
+            name=username,
+            description=description,
+            age=age
         )
 
         return redirect('index')
+
     return render(request, 'register.html')
 
 

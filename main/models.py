@@ -19,4 +19,4 @@ class Profile(models.Model):
     age = models.IntegerField()
     description = models.TextField()
     name = models.CharField(max_length=100)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
